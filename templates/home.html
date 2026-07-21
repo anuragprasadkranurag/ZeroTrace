@@ -1101,6 +1101,90 @@ RESPONSIVE
             background: rgba(0, 123, 255, 0.1);
             color: #007bff;
         }
+
+        /* Hide standard username profile block and text logout button on mobile */
+        @media (max-width: 768px) {
+            .desktop-only-user {
+                display: none !important;
+            }
+
+            .mobile-profile-wrapper {
+                display: inline-block !important;
+            }
+
+            .desktop-logout-btn {
+                display: none !important;
+            }
+
+            .mobile-logout-icon {
+                display: inline-flex !important;
+            }
+        }
+
+        /* Default state for desktop */
+        .mobile-profile-wrapper {
+            display: none;
+        }
+
+        .mobile-logout-icon {
+            display: none;
+        }
+
+        /* Profile Icon Dropdown Styling */
+        .user-profile-wrapper {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: #121212;
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 10px 0;
+            min-width: 160px;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Show dropdown on hover (or click capability can be added via JS if preferred) */
+        .user-profile-wrapper:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu .username-display {
+            padding: 8px 20px;
+            font-size: 13px;
+            color: #888;
+            border-bottom: 1px solid #222;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 8px 20px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .dropdown-menu a:hover {
+            background: rgba(0, 123, 255, 0.1);
+            color: #007bff;
+        }
+
+        /* Icon button style for mobile logout */
+        .btn-icon-only {
+            padding: 10px 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+        }
     </style>
 
 </head>
@@ -1128,20 +1212,35 @@ RESPONSIVE
                 <a href="{{ url_for('login') }}" class="btn btn-login">Sign In</a>
                 <a href="{{ url_for('login', next='analyze') }}" class="btn btn-primary">Get Started</a>
                 {% else %}
-                <a href="{{ url_for('analyze') }}" class="btn btn-primary">Analyze Contracts</a>
-                <!-- Replace your existing user-profile div with this -->
-                <div class="user-profile-wrapper" style="position: relative; display: inline-block;">
+                <a href="{{ url_for('analyze') }}" class="btn btn-primary hide-mobile">Analyze Contracts</a>
+
+                <!-- Desktop View: Username + Icon -->
+                <div class="user-profile-wrapper desktop-only-user" style="position: relative; display: inline-block;">
                     <div class="user-profile">
                         <span>{{ user }}</span>
                         <span>👤</span>
                     </div>
-                    <!-- Inside your existing dropdown-menu from the previous step -->
                     <div class="dropdown-menu">
                         <a href="{{ url_for('profile') }}">Profile</a>
                         <a href="{{ url_for('logout') }}">Logout</a>
                     </div>
                 </div>
-                <a href="{{ url_for('logout') }}" class="btn btn-login">Logout</a>
+                <a href="{{ url_for('logout') }}" class="btn btn-login desktop-logout-btn">Logout</a>
+
+                <!-- Mobile View: Profile Icon Dropdown & Logout Icon -->
+                <div class="user-profile-wrapper mobile-profile-wrapper" style="position: relative;">
+                    <div class="user-profile btn-icon-only">
+                        <span>👤</span>
+                    </div>
+                    <div class="dropdown-menu">
+                        <div class="username-display">{{ user }}</div>
+                        <a href="{{ url_for('profile') }}">Profile</a>
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </div>
+                <a href="{{ url_for('logout') }}" class="btn btn-login btn-icon-only mobile-logout-icon" title="Logout">
+                    🚪
+                </a>
                 {% endif %}
             </div>
 
