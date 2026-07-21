@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>ZeroTrace Authentication</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #060912;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            left: -300px;
+            top: -300px;
+            width: 700px;
+            height: 700px;
+            background: #1d4fff55;
+            filter: blur(180px);
+            z-index: -1;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            right: -250px;
+            bottom: -250px;
+            width: 600px;
+            height: 600px;
+            background: #0b3cff44;
+            filter: blur(170px);
+            z-index: -1;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 520px;
+            min-height: 100vh;
+        }
+
+        .left {
+            padding: 60px 70px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .logo-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #2b6bff, #5ca8ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .logo h2 {
+            font-size: 34px;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: #3f79ff;
+        }
+
+        .badge {
+            display: inline-flex;
+            padding: 12px 20px;
+            border-radius: 30px;
+            background: #102454;
+            color: #9fbaff;
+            width: max-content;
+            margin-bottom: 35px;
+        }
+
+        h1 {
+            font-size: 70px;
+            line-height: 1.1;
+            font-weight: 800;
+            margin-bottom: 30px;
+        }
+
+        .blue {
+            color: #2f6fff;
+        }
+
+        .desc {
+            font-size: 22px;
+            color: #a7b0c8;
+            line-height: 1.8;
+            max-width: 700px;
+            margin-bottom: 45px;
+        }
+
+        .features {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 320px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 18px;
+            border-radius: 18px;
+            background: rgba(18, 29, 56, .75);
+            border: 1px solid rgba(60, 110, 255, .25);
+        }
+
+        .feature i {
+            font-size: 24px;
+            color: #3c7aff;
+            width: 35px;
+        }
+
+        .feature h3 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .contract {
+            position: absolute;
+            left: 43%;
+            top: 50%;
+            transform: translate(-50%, -50%) rotate(-8deg);
+            width: 290px;
+            height: 380px;
+            border-radius: 28px;
+            background: linear-gradient(180deg, #153da8, #081120);
+            border: 2px solid #4a83ff;
+            box-shadow: 0 0 80px #235dff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        .contract h2 {
+            margin-bottom: 35px;
+            font-size: 36px;
+        }
+
+        .line {
+            width: 180px;
+            height: 6px;
+            border-radius: 20px;
+            background: #4d80ff;
+            margin-bottom: 16px;
+            opacity: .5;
+        }
+
+        .signature {
+            margin-top: auto;
+            align-self: flex-end;
+            font-size: 30px;
+            font-family: cursive;
+            color: #fff;
+        }
+
+        @keyframes float {
+            50% {
+                transform: translate(-50%, -54%) rotate(-8deg);
+            }
+        }
+
+        .right {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 500px;
+            padding: 45px;
+            background: rgba(10, 15, 28, .93);
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 24px;
+            backdrop-filter: blur(18px);
+        }
+
+        .card h1 {
+            font-size: 46px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            text-align: center;
+            color: #9ba7c9;
+            margin-bottom: 35px;
+        }
+
+        label {
+            display: block;
+            margin: 20px 0 10px;
+            font-weight: 600;
+        }
+
+        .input {
+            display: flex;
+            align-items: center;
+            background: #0e1321;
+            border: 1px solid #2a3658;
+            padding: 18px;
+            border-radius: 12px;
+        }
+
+        .input input {
+            flex: 1;
+            background: none;
+            border: none;
+            outline: none;
+            color: white;
+            font-size: 16px;
+            margin-left: 15px;
+        }
+
+        .input i {
+            color: #8fa0d5;
+        }
+
+        .forgot {
+            text-align: right;
+            margin-top: 12px;
+        }
+
+        .forgot a {
+            color: #4e84ff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        button {
+            width: 100%;
+            margin: 30px 0;
+            padding: 18px;
+            font-size: 18px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #2563ff, #4d8cff);
+            color: white;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px #356fff;
+        }
+
+        .or {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: #7f89a8;
+        }
+
+        .or::before,
+        .or::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #2c3558;
+        }
+
+        .or span {
+            padding: 0 15px;
+        }
+
+        .social {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .social button {
+            margin: 0;
+            background: #0f1422;
+            border: 1px solid #2b3557;
+            box-shadow: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .toggle-link {
+            margin-top: 30px;
+            text-align: center;
+            color: #98a3c5;
+        }
+
+        .toggle-link a {
+            color: #4b84ff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .error-msg {
+            color: #ff4d4d;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            text-align: center;
+            min-height: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media(max-width:1200px) {
+            .container {
+                display: flex;
+                flex-direction: column-reverse;
+            }
+
+            .contract {
+                display: none;
+            }
+
+            .left {
+                padding: 50px;
+            }
+
+            .right {
+                padding: 50px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div style="position: fixed; top: 0; left: 0; width: 100%; padding: 20px 40px; z-index: 1000;">
+        <a href="{{ url_for('home') }}"
+            style="color: #4e84ff; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-arrow-left"></i> Back to Home
+        </a>
+    </div>
+    <div class="container">
+        <div class="left">
+            <!-- <div style="width: 100%; display: flex; justify-content: flex-start; margin-bottom: 20px;">
+                <a href="{{ url_for('home') }}"
+                    style="color: #4e84ff; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Home
+                </a>
+            </div> -->
+            <!-- Inside <div class="left"> -->
+            <div class="logo">
+                <a href="{{ url_for('home') }}"
+                    style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 15px;">
+                    <div class="logo-icon">ZT</div>
+                    <h2>Zero<span>Trace</span></h2>
+                </a>
+            </div>
+            <div class="badge">✨ AI-Powered Contract Intelligence</div>
+            <h1>Smarter Contracts.<br>Stronger <span class="blue">Decisions.</span></h1>
+            <p class="desc">AI-driven contract analysis that helps you identify risks, ensure compliance, and protect
+                what matters.</p>
+            <div class="features">
+                <div class="feature"><i class="fa-solid fa-shield"></i>
+                    <h3>Risk Detection</h3>
+                </div>
+                <div class="feature"><i class="fa-solid fa-file-lines"></i>
+                    <h3>Clause Analysis</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="contract">
+            <h2>CONTRACT</h2>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="signature">✍</div>
+        </div>
+
+        <div class="right">
+            <!-- Sign In -->
+            <div class="card" id="signin-card">
+                <h1>Welcome Back</h1>
+                <p>Sign in to your ZeroTrace account</p>
+                <label>Email Address</label>
+                <div class="input"><i class="fa-regular fa-envelope"></i><input id="si-email"
+                        placeholder="Enter your email"></div>
+                <label>Password</label>
+                <div class="input"><i class="fa-solid fa-lock"></i><input type="password" id="si-pass"
+                        placeholder="Enter your password"></div>
+                <div class="forgot"><a id="to-forgot">Forgot Password?</a></div>
+                <div class="error-msg" id="si-error"></div>
+                <button id="si-btn">Sign In →</button>
+                <div class="or"><span>or continue with</span></div>
+                <div class="social"><button id="google-btn"><i class="fab fa-google"></i> Continue with Google</button>
+                </div>
+                <div class="toggle-link">Don't have an account? <a id="to-signup">Sign up</a></div>
+            </div>
+
+            <!-- Sign Up -->
+            <div class="card hidden" id="signup-card">
+                <h1>Create Account</h1>
+                <p>Start your journey with ZeroTrace</p>
+                <label>Email Address</label>
+                <div class="input"><i class="fa-regular fa-envelope"></i><input id="su-email"
+                        placeholder="Enter your email"></div>
+                <label>Password</label>
+                <div class="input"><i class="fa-solid fa-lock"></i><input type="password" id="su-pass"
+                        placeholder="Create a password"></div>
+                <div class="error-msg" id="su-error"></div>
+                <button id="su-btn">Create Account →</button>
+                <div class="toggle-link">Already have an account? <a id="to-signin">Sign in</a></div>
+            </div>
+
+            <!-- Forgot Password -->
+            <div class="card hidden" id="forgot-card">
+                <h1>Reset Password</h1>
+                <p>Enter your email to receive a reset link</p>
+                <label>Email Address</label>
+                <div class="input"><i class="fa-regular fa-envelope"></i><input id="fr-email"
+                        placeholder="Enter your email"></div>
+                <div class="error-msg" id="fr-error"></div>
+                <button id="reset-btn">Send Reset Link →</button>
+                <div class="toggle-link"><a id="back-to-signin">Back to Sign In</a></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD90e63FdpauqhwGungojpbES2AeljKlxo",
+            authDomain: "zerotrace-777fc.firebaseapp.com",
+            projectId: "zerotrace-777fc",
+            storageBucket: "zerotrace-777fc.firebasestorage.app",
+            messagingSenderId: "222531023476",
+            appId: "1:222531023476:web:f61e1e9e3f63459bd19721"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        const toggle = (show, hide1, hide2) => {
+            document.getElementById(show).classList.remove('hidden');
+            document.getElementById(hide1).classList.add('hidden');
+            document.getElementById(hide2).classList.add('hidden');
+        };
+        const getQueryParam = (param) => {
+            return new URLSearchParams(window.location.search).get(param);
+        };
+        document.getElementById('to-signup').onclick = () => toggle('signup-card', 'signin-card', 'forgot-card');
+        document.getElementById('to-signin').onclick = () => toggle('signin-card', 'signup-card', 'forgot-card');
+        document.getElementById('to-forgot').onclick = () => toggle('forgot-card', 'signin-card', 'signup-card');
+        document.getElementById('back-to-signin').onclick = () => toggle('signin-card', 'signup-card', 'forgot-card');
+
+        const getFriendlyError = (error) => {
+            switch (error.code) {
+                case 'auth/invalid-email': return 'The email address is invalid.';
+                case 'auth/user-not-found': return 'No account found with this email.';
+                case 'auth/wrong-password': return 'Incorrect password.';
+                case 'auth/email-already-in-use': return 'This email is already registered.';
+                case 'auth/weak-password': return 'Password should be at least 6 characters.';
+                default: return error.message;
+            }
+        };
+
+        const showError = (id, error) => {
+            const el = document.getElementById(id);
+            el.innerText = error.code ? getFriendlyError(error) : error;
+            setTimeout(() => { el.innerText = ""; }, 6000);
+        };
+        const syncSessionAndRedirect = async (email) => {
+            await fetch('/set-session', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email })
+            });
+
+            const next = getQueryParam('next');
+            if (next === 'analyze') {
+                window.location.href = "/analyze";
+            } else {
+                window.location.href = "/home";
+            }
+        };
+        document.getElementById('si-btn').onclick = () => {
+            signInWithEmailAndPassword(auth, document.getElementById('si-email').value, document.getElementById('si-pass').value)
+                .then(() => window.location.href = "/home")
+                .catch(e => showError('si-error', e));
+        };
+
+        document.getElementById('su-btn').onclick = () => {
+            createUserWithEmailAndPassword(auth, document.getElementById('su-email').value, document.getElementById('su-pass').value)
+                .then(() => window.location.href = "/home")
+                .catch(e => showError('su-error', e));
+        };
+
+        document.getElementById('reset-btn').onclick = () => {
+            sendPasswordResetEmail(auth, document.getElementById('fr-email').value)
+                .then(() => showError('fr-error', "Reset email sent! Check your inbox."))
+                .catch(e => showError('fr-error', e));
+        };
+
+        document.getElementById('google-btn').onclick = () => {
+            signInWithPopup(auth, provider)
+                .then((result) => syncSessionAndRedirect(result.user.email))
+                .catch(e => showError('si-error', e));
+        };
+        // Example modification for sign-in
+        document.getElementById('si-btn').onclick = () => {
+            const email = document.getElementById('si-email').value;
+            signInWithEmailAndPassword(auth, email, document.getElementById('si-pass').value)
+                .then(async () => {
+                    await fetch('/set-session', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: email })
+                    });
+
+                    // Check if 'next' was passed, otherwise default to '/home'
+                    const next = getQueryParam('next');
+                    if (next === 'analyze') {
+                        window.location.href = "/analyze";
+                    } else {
+                        window.location.href = "/home";
+                    }
+                })
+                .catch(e => showError('si-error', e));
+        };
+    </script>
+</body>
+
+</html>

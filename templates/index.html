@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZeroTrace | Loading</title>
+    <style>
+        /* Mobile-responsive base setup */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0a0a0a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: sans-serif;
+            overflow: hidden;
+        }
+
+        .logo-container {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .logo-container.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 0 20px rgba(0, 123, 255, 0.2));
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            max-width: 300px;
+            height: 2px;
+            background: #222;
+            margin-top: 30px;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .progress-bar-fill {
+            width: 0%;
+            height: 100%;
+            background: #007bff;
+            transition: width 2.5s linear;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logo-container" id="logo">
+        <img src="{{ url_for('static', filename='img/zerotrace_logo.png') }}" alt="ZeroTrace Logo">
+        <div class="progress-bar-container" id="progress-container">
+            <div class="progress-bar-fill" id="progress-fill"></div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('load', () => {
+            const logo = document.getElementById('logo');
+            const progressContainer = document.getElementById('progress-container');
+            const progressFill = document.getElementById('progress-fill');
+
+            // Trigger animations
+            setTimeout(() => {
+                logo.classList.add('fade-in');
+                progressContainer.style.opacity = '1';
+                
+                // Start progress bar
+                setTimeout(() => {
+                    progressFill.style.width = '100%';
+                }, 100);
+            }, 300);
+
+            // Redirect to home page after 3 seconds
+            setTimeout(() => {
+                window.location.href = "{{ url_for('home') }}";
+            }, 3000);
+        });
+    </script>
+</body>
+</html>

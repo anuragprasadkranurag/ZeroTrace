@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ZeroTrace | AI Contract Intelligence</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+
+        }
+
+        /* Background /*==============================
+STATISTICS
+==============================*/
+
+        .stats {
+
+            padding: 20px 0 80px;
+
+        }
+
+        .stats-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 25px;
+
+        }
+
+        .stat-card {
+
+            background: #111;
+
+            border: 1px solid #222;
+
+            border-radius: 20px;
+
+            padding: 35px;
+
+            text-align: center;
+
+            transition: .35s;
+
+        }
+
+        .stat-card:hover {
+
+            transform: translateY(-8px);
+
+            border-color: #007bff;
+
+            box-shadow: 0 15px 40px rgba(0, 123, 255, .18);
+
+        }
+
+        .stat-card h2 {
+
+            font-size: 42px;
+
+            color: #007bff;
+
+            margin-bottom: 10px;
+
+        }
+
+        .stat-card p {
+
+            color: #bcbcbc;
+
+        }
+
+        /*==============================
+CTA
+==============================*/
+
+        .cta {
+
+            padding-bottom: 90px;
+
+        }
+
+        .cta-box {
+
+            background: linear-gradient(135deg,
+                    rgba(0, 123, 255, .18),
+                    rgba(20, 20, 20, .95));
+
+            border: 1px solid rgba(0, 123, 255, .35);
+
+            border-radius: 28px;
+
+            padding: 70px;
+
+            text-align: center;
+
+        }
+
+        .cta-box h2 {
+
+            font-size: 42px;
+
+            margin-bottom: 20px;
+
+        }
+
+        .cta-box p {
+
+            max-width: 700px;
+
+            margin: auto;
+
+            margin-bottom: 35px;
+
+            color: #bdbdbd;
+
+            line-height: 1.9;
+
+            font-size: 18px;
+
+        }
+
+        @media(max-width:1100px) {
+
+            .stats-grid {
+
+                grid-template-columns: repeat(2, 1fr);
+
+            }
+
+        }
+
+        @media(max-width:700px) {
+
+            .stats-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .cta-box {
+
+                padding: 40px 25px;
+
+            }
+
+            .cta-box h2 {
+
+                font-size: 30px;
+
+            }
+
+        }
+
+        Glow */ body::before {
+
+            content: "";
+
+            position: fixed;
+
+            left: -250px;
+            top: -250px;
+
+            width: 700px;
+            height: 700px;
+
+            background:
+                radial-gradient(circle, #007bff30 0%, transparent 70%);
+
+            filter: blur(100px);
+
+            z-index: -2;
+
+        }
+
+        body::after {
+
+            content: "";
+
+            position: fixed;
+
+            right: -250px;
+            bottom: -250px;
+
+            width: 700px;
+            height: 700px;
+
+            background:
+                radial-gradient(circle, #007bff18 0%, transparent 70%);
+
+            filter: blur(120px);
+
+            z-index: -2;
+
+        }
+
+        .container {
+
+            width: 92%;
+            max-width: 1350px;
+            margin: auto;
+
+        }
+
+        /* ==========================
+NAVBAR
+========================== */
+
+        nav {
+
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+
+            padding: 18px 0;
+
+            background: rgba(10, 10, 10, .86);
+
+            backdrop-filter: blur(20px);
+
+            border-bottom: 1px solid rgba(255, 255, 255, .05);
+
+            z-index: 999;
+
+        }
+
+        .nav-content {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+        .logo {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+        }
+
+        .logo img {
+
+            width: 46px;
+
+            filter: drop-shadow(0 0 12px rgba(0, 123, 255, .4));
+
+        }
+
+        .logo h2 {
+
+            font-size: 28px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+        }
+
+        .logo span {
+
+            color: #007bff;
+
+        }
+
+        .nav-links {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+        }
+
+        .btn {
+
+            padding: 12px 22px;
+
+            text-decoration: none;
+
+            border-radius: 12px;
+
+            transition: .3s;
+
+            font-weight: 600;
+
+        }
+
+        .btn-login {
+
+            color: #fff;
+
+            border: 1px solid #2a2a2a;
+
+        }
+
+        .btn-login:hover {
+
+            border-color: #007bff;
+
+            color: #007bff;
+
+        }
+
+        .btn-primary {
+
+            background: #007bff;
+
+            color: #fff;
+
+        }
+
+        .btn-primary:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow: 0 12px 35px rgba(0, 123, 255, .4);
+
+        }
+
+        .user-profile {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 10px 20px;
+
+            background: #121212;
+
+            border: 1px solid #222;
+
+            border-radius: 50px;
+
+        }
+
+        /* ==========================
+HERO
+========================== */
+
+        .hero {
+
+            padding-top: 130px;
+
+            padding-bottom: 40px;
+
+            min-height: 72vh;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+        }
+
+        .badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 10px 18px;
+
+            background: #111;
+
+            border: 1px solid rgba(0, 123, 255, .45);
+
+            border-radius: 30px;
+
+            color: #9cc9ff;
+
+            margin-bottom: 30px;
+
+            font-size: .95rem;
+
+        }
+
+        .badge::before {
+
+            content: "";
+
+            width: 8px;
+
+            height: 8px;
+
+            border-radius: 50%;
+
+            background: #007bff;
+
+            box-shadow: 0 0 10px #007bff;
+
+        }
+
+        .hero h1 {
+
+            font-size: 64px;
+
+            font-weight: 900;
+
+            line-height: 1.05;
+
+            margin-bottom: 25px;
+
+            max-width: 900px;
+
+            margin-inline: auto;
+
+        }
+
+        .hero h1 span {
+
+            background: linear-gradient(90deg, #ffffff, #007bff);
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+
+        }
+
+        .hero p {
+
+            max-width: 780px;
+
+            margin: auto;
+
+            font-size: 18px;
+
+            line-height: 1.8;
+
+            color: #b8b8b8;
+
+            margin-bottom: 35px;
+
+        }
+
+        .hero-buttons {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 20px;
+
+            flex-wrap: wrap;
+
+        }
+
+        .hero-btn {
+
+            padding: 17px 36px;
+
+            border-radius: 14px;
+
+            text-decoration: none;
+
+            font-weight: 700;
+
+            transition: .3s;
+
+        }
+
+        .hero-btn.primary {
+
+            background: #007bff;
+
+            color: #fff;
+
+        }
+
+        .hero-btn.primary:hover {
+
+            transform: translateY(-4px);
+
+            box-shadow: 0 15px 45px rgba(0, 123, 255, .45);
+
+        }
+
+        .hero-btn.secondary {
+
+            border: 1px solid #2b2b2b;
+
+            color: #fff;
+
+        }
+
+        .hero-btn.secondary:hover {
+
+            border-color: #007bff;
+
+            color: #007bff;
+
+        }
+
+        /*==============================
+FEATURE SECTION
+==============================*/
+
+        .features {
+
+            margin-top: -20px;
+            padding-bottom: 70px;
+
+            position: relative;
+            z-index: 10;
+
+        }
+
+        .feature-grid {
+
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+
+        }
+
+        .feature-card {
+
+            background: rgba(17, 17, 17, .92);
+
+            border: 1px solid #222;
+
+            border-radius: 20px;
+
+            padding: 28px;
+
+            transition: .35s;
+
+            backdrop-filter: blur(20px);
+
+            position: relative;
+
+            overflow: hidden;
+
+        }
+
+        .feature-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: -40px;
+            right: -40px;
+
+            width: 140px;
+            height: 140px;
+
+            background: rgba(0, 123, 255, .08);
+
+            border-radius: 50%;
+
+            transition: .4s;
+
+        }
+
+        /*==============================
+ANIMATIONS
+==============================*/
+
+        @keyframes fadeUp {
+
+            0% {
+
+                opacity: 0;
+                transform: translateY(40px);
+
+            }
+
+            100% {
+
+                opacity: 1;
+                transform: translateY(0);
+
+            }
+
+        }
+
+        @keyframes float {
+
+            0% {
+
+                transform: translateY(0px);
+
+            }
+
+            50% {
+
+                transform: translateY(-12px);
+
+            }
+
+            100% {
+
+                transform: translateY(0px);
+
+            }
+
+        }
+
+        .hero {
+
+            animation: fadeUp 1s ease;
+
+        }
+
+        .feature-card {
+
+            animation: fadeUp .8s ease forwards;
+
+        }
+
+        .feature-card:nth-child(2) {
+
+            animation-delay: .15s;
+
+        }
+
+        .feature-card:nth-child(3) {
+
+            animation-delay: .3s;
+
+        }
+
+        .feature-card:nth-child(4) {
+
+            animation-delay: .45s;
+
+        }
+
+        .about-card {
+
+            animation: fadeUp .8s ease;
+
+        }
+
+        .stat-card {
+
+            animation: fadeUp .8s ease;
+
+        }
+
+        /*==============================
+GLOW EFFECTS
+==============================*/
+
+        .feature-card::after {
+
+            content: "";
+
+            position: absolute;
+
+            left: -100%;
+
+            top: 0;
+
+            width: 70%;
+
+            height: 100%;
+
+            background: linear-gradient(90deg,
+
+                    transparent,
+
+                    rgba(0, 123, 255, .18),
+
+                    transparent);
+
+            transition: .7s;
+
+        }
+
+        .feature-card:hover::after {
+
+            left: 150%;
+
+        }
+
+        .hero h1 {
+
+            text-shadow:
+
+                0 0 30px rgba(0, 123, 255, .18);
+
+        }
+
+        .hero-btn {
+
+            position: relative;
+
+            overflow: hidden;
+
+        }
+
+        .hero-btn::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+
+            left: -120%;
+
+            width: 120%;
+
+            height: 100%;
+
+            background:
+
+                linear-gradient(90deg,
+
+                    transparent,
+
+                    rgba(255, 255, 255, .3),
+
+                    transparent);
+
+            transition: .6s;
+
+        }
+
+        .hero-btn:hover::before {
+
+            left: 150%;
+
+        }
+
+        /*==============================
+SMOOTH HOVER
+==============================*/
+
+        .feature-card,
+        .about-card,
+        .stat-card,
+        .hero-btn,
+        .btn {
+
+            transition:
+
+                all .35s ease;
+
+        }
+
+        /*==============================
+SECTION TITLES
+==============================*/
+
+        .section-title {
+
+            text-align: center;
+
+            margin-bottom: 60px;
+
+        }
+
+        .section-title h2 {
+
+            font-size: 46px;
+
+            margin-bottom: 15px;
+
+            font-weight: 800;
+
+        }
+
+        .section-title p {
+
+            color: #9d9d9d;
+
+            font-size: 18px;
+
+            max-width: 700px;
+
+            margin: auto;
+
+            line-height: 1.8;
+
+        }
+
+        .feature-card:hover::before {
+
+            transform: scale(1.4);
+
+        }
+
+        .feature-card:hover {
+
+            transform: translateY(-8px);
+
+            border-color: #007bff;
+
+            box-shadow: 0 15px 40px rgba(0, 123, 255, .18);
+
+        }
+
+        .feature-icon {
+
+            width: 65px;
+            height: 65px;
+
+            border-radius: 16px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 28px;
+
+            background: rgba(0, 123, 255, .12);
+
+            color: #007bff;
+
+            margin-bottom: 22px;
+
+        }
+
+        .feature-card h3 {
+
+            font-size: 22px;
+
+            margin-bottom: 15px;
+
+            font-weight: 700;
+
+        }
+
+        .feature-card p {
+
+            color: #b9b9b9;
+
+            line-height: 1.8;
+
+            font-size: 15px;
+
+        }
+
+        /*==============================
+ABOUT
+==============================*/
+
+        .about {
+
+            padding: 70px 0;
+
+        }
+
+        .about-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 30px;
+
+        }
+
+        .about-card {
+
+            background: #111;
+
+            border: 1px solid #222;
+
+            border-radius: 22px;
+
+            padding: 40px;
+
+            transition: .35s;
+
+            position: relative;
+
+            overflow: hidden;
+
+        }
+
+        .about-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+
+            height: 4px;
+
+            background: #007bff;
+
+        }
+
+        .about-card:hover {
+
+            border-color: #007bff;
+
+            transform: translateY(-8px);
+
+            box-shadow: 0 20px 45px rgba(0, 123, 255, .18);
+
+        }
+
+        .about-card h2 {
+
+            color: #007bff;
+
+            font-size: 28px;
+
+            margin-bottom: 20px;
+
+        }
+
+        .about-card p {
+
+            color: #bdbdbd;
+
+            font-size: 17px;
+
+            line-height: 1.9;
+
+        }
+
+        /*==============================
+FOOTER
+==============================*/
+
+        footer {
+
+            margin-top: 40px;
+
+            padding: 35px 0;
+
+            text-align: center;
+
+            border-top: 1px solid #1f1f1f;
+
+            color: #777;
+
+        }
+
+        footer span {
+
+            color: #007bff;
+
+        }
+
+        /*==============================
+RESPONSIVE
+==============================*/
+        @media(max-width: 480px) {
+            .nav-links {
+                gap: 10px;
+            }
+
+            .nav-link-item {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media(max-width: 1200px) {
+            .hide-mobile {
+                display: none !important;
+            }
+        }
+
+        @media(max-width:1200px) {
+
+            .feature-grid {
+
+                grid-template-columns: repeat(2, 1fr);
+
+            }
+
+        }
+
+        @media(max-width:900px) {
+
+            .hero h1 {
+
+                font-size: 50px;
+
+            }
+
+            .about-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+        @media(max-width:700px) {
+
+            .feature-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .hero {
+
+                padding-top: 120px;
+
+            }
+
+            .hero h1 {
+
+                font-size: 38px;
+
+            }
+
+            .hero p {
+
+                font-size: 16px;
+
+            }
+
+            .logo h2 {
+
+                font-size: 22px;
+
+            }
+
+        }
+
+        /* Style for the dropdown container */
+        .user-profile-wrapper {
+            position: relative;
+            cursor: pointer;
+        }
+
+        /* Hidden by default */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: #121212;
+            border: 1px solid #222;
+            border-radius: 8px;
+            padding: 10px 0;
+            min-width: 120px;
+            z-index: 1000;
+        }
+
+        /* Show dropdown on hover */
+        .user-profile-wrapper:hover .dropdown-menu {
+            display: block;
+        }
+
+        /* Dropdown links */
+        .dropdown-menu a {
+            display: block;
+            padding: 8px 20px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .dropdown-menu a:hover {
+            background: rgba(0, 123, 255, 0.1);
+            color: #007bff;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <nav>
+
+        <div class="container nav-content">
+
+            <div class="logo">
+
+                <img src="{{ url_for('static', filename='img/zerotrace_logo.png') }}">
+
+                <h2>Zero<span>Trace</span></h2>
+
+            </div>
+
+            <div class="nav-links">
+                <!-- Added About Link with consistent styling -->
+                <a href="{{ url_for('about') }}" class="nav-link-item hide-mobile"
+                    style="color: #fff; text-decoration: none; margin-right: 20px; font-weight: 500;">About</a>
+
+                {% if not user %}
+                <a href="{{ url_for('login') }}" class="btn btn-login">Sign In</a>
+                <a href="{{ url_for('login', next='analyze') }}" class="btn btn-primary">Get Started</a>
+                {% else %}
+                <a href="{{ url_for('analyze') }}" class="btn btn-primary">Analyze Contracts</a>
+                <!-- Replace your existing user-profile div with this -->
+                <div class="user-profile-wrapper" style="position: relative; display: inline-block;">
+                    <div class="user-profile">
+                        <span>{{ user }}</span>
+                        <span>👤</span>
+                    </div>
+                    <!-- Inside your existing dropdown-menu from the previous step -->
+                    <div class="dropdown-menu">
+                        <a href="{{ url_for('profile') }}">Profile</a>
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </div>
+                <a href="{{ url_for('logout') }}" class="btn btn-login">Logout</a>
+                {% endif %}
+            </div>
+
+        </div>
+
+    </nav>
+
+    <section class="hero">
+
+        <div class="container">
+
+            <div class="badge">
+
+                AI Powered Contract Intelligence
+
+            </div>
+
+            <h1>
+
+                Transform Every Contract Into
+
+                <br>
+
+                <span>Actionable Intelligence.</span>
+
+            </h1>
+
+            <p>
+
+                AI-powered contract analysis that identifies legal risks,
+                explains every clause in plain English,
+                tracks obligations automatically,
+                and answers contract questions instantly—
+                all from one secure platform.
+
+            </p>
+
+            <div class="hero-buttons">
+
+                {% if not user %}
+                <a href="{{ url_for('login', next='analyze') }}" class="hero-btn primary">Get Started Free</a>
+                {% else %}
+                <a href="{{ url_for('analyze') }}" class="hero-btn primary">Analyze Contracts</a>
+                {% endif %}
+
+                <a href="{{ url_for('about') }}" class="hero-btn secondary">
+                    About Us
+                </a>
+                <a href="#features" class="hero-btn secondary">
+
+                    Learn More
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="features" id="features">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <h2>
+
+                    Powerful AI Features
+
+                </h2>
+
+                <p>
+
+                    Everything required to understand,
+                    monitor,
+                    and manage contracts from one intelligent platform.
+
+                </p>
+
+            </div>
+
+            <div class="feature-grid">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">🛡️</div>
+
+                    <h3>Risk Detection</h3>
+
+                    <p>
+
+                        Find hidden liabilities,
+                        termination clauses,
+                        renewal traps,
+                        and risky legal language automatically.
+
+                    </p>
+
+                </div>
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">📑</div>
+
+                    <h3>Clause Intelligence</h3>
+
+                    <p>
+
+                        Every clause is summarized into simple language with AI-generated explanations.
+
+                    </p>
+
+                </div>
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">📅</div>
+
+                    <h3>Obligation Tracking</h3>
+
+                    <p>
+
+                        Track payment dates,
+                        renewals,
+                        deadlines,
+                        and contractual commitments effortlessly.
+
+                    </p>
+
+                </div>
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">🔒</div>
+
+                    <h3>Enterprise Security</h3>
+
+                    <p>
+
+                        Military-grade encryption ensures your contracts remain secure and private.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+    <section class="about">
+
+        <div class="container">
+
+            <div class="about-grid">
+
+                <div class="about-card">
+
+                    <h2>Our Vision</h2>
+
+                    <p>
+
+                        Every company signs contracts they don't fully understand —
+                        buried liabilities,
+                        auto-renewal traps,
+                        one-sided indemnity clauses,
+                        compliance gaps,
+                        and hidden obligations.
+
+                        Legal teams are stretched thin,
+                        while many SMEs have no legal department at all.
+
+                        ZeroTrace transforms every contract into structured,
+                        queryable intelligence—
+                        flagging risk,
+                        tracking obligations,
+                        and answering legal questions instantly,
+                        ensuring no deadline,
+                        clause,
+                        or exposure ever slips through unnoticed.
+
+                    </p>
+
+                </div>
+
+                <div class="about-card">
+
+                    <h2>Our Mission</h2>
+
+                    <p>
+
+                        To empower businesses and legal professionals with an
+                        AI-native platform that automatically reads,
+                        understands,
+                        monitors,
+                        and explains every contract they sign.
+
+                        From identifying risks to tracking obligations and answering
+                        questions in seconds,
+                        ZeroTrace enables faster,
+                        safer,
+                        and more informed decisions.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ==========================
+STATISTICS
+========================== -->
+
+    <section class="stats">
+
+        <div class="container">
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+
+                    <h2>99%</h2>
+
+                    <p>
+
+                        Clause Detection Accuracy
+
+                    </p>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <h2>5x</h2>
+
+                    <p>
+
+                        Faster Contract Reviews
+
+                    </p>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <h2>24/7</h2>
+
+                    <p>
+
+                        AI Monitoring
+
+                    </p>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <h2>100%</h2>
+
+                    <p>
+
+                        Secure Processing
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ==========================
+CALL TO ACTION
+========================== -->
+
+    <section class="cta">
+
+        <div class="container">
+
+            <div class="cta-box">
+
+                <h2>
+
+                    Ready to Modernize Contract Intelligence?
+
+                </h2>
+
+                <p>
+
+                    Upload your first agreement and experience AI-powered
+                    contract analysis,
+                    risk detection,
+                    and obligation tracking within seconds.
+
+                </p>
+
+                <a href="{{ url_for('login') }}" class="hero-btn primary">
+
+                    Start Free Today
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <footer>
+
+        <div class="container">
+
+            <p>
+
+                © 2026 <span style="color:#007bff;">ZeroTrace</span>
+
+                All Rights Reserved.
+
+            </p>
+
+        </div>
+
+    </footer>
+    <script>
+
+        const observer = new IntersectionObserver(entries => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.style.opacity = 1;
+
+                    entry.target.style.transform = "translateY(0)";
+
+                }
+
+            });
+
+        });
+
+        document.querySelectorAll(
+
+            '.feature-card,.about-card,.stat-card'
+
+        ).forEach(el => {
+
+            el.style.opacity = 0;
+
+            el.style.transform = "translateY(40px)";
+
+            observer.observe(el);
+
+        });
+
+        window.addEventListener("scroll", () => {
+
+            const nav = document.querySelector("nav");
+
+            if (window.scrollY > 20) {
+
+                nav.style.boxShadow = "0 10px 30px rgba(0,0,0,.35)";
+
+            } else {
+
+                nav.style.boxShadow = "none";
+
+            }
+
+        });
+
+    </script><!-- ==========================
+BACKGROUND PARTICLES
+========================== -->
+
+    <div class="particles">
+
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+
+    </div>
+
+    <script>
+
+        /*==========================
+        Scroll Animation
+        ==========================*/
+
+        const observer = new IntersectionObserver((entries) => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add("show");
+
+                }
+
+            });
+
+        }, {
+            threshold: .15
+        });
+
+        document.querySelectorAll(
+            ".feature-card,.about-card,.stat-card,.cta-box"
+        ).forEach(el => observer.observe(el));
+
+        /*==========================
+        Navbar Effect
+        ==========================*/
+
+        const nav = document.querySelector("nav");
+
+        window.addEventListener("scroll", () => {
+
+            if (window.scrollY > 20) {
+
+                nav.style.background = "rgba(10,10,10,.96)";
+                nav.style.borderBottom = "1px solid rgba(0,123,255,.18)";
+                nav.style.boxShadow = "0 10px 40px rgba(0,0,0,.45)";
+
+            }
+            else {
+
+                nav.style.background = "rgba(10,10,10,.86)";
+                nav.style.borderBottom = "1px solid rgba(255,255,255,.05)";
+                nav.style.boxShadow = "none";
+
+            }
+
+        });
+
+        /*==========================
+        Button Ripple
+        ==========================*/
+
+        document.querySelectorAll(".hero-btn,.btn-primary").forEach(button => {
+
+            button.addEventListener("mouseenter", () => {
+
+                button.style.transform = "translateY(-4px)";
+
+            });
+
+            button.addEventListener("mouseleave", () => {
+
+                button.style.transform = "translateY(0px)";
+
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>
