@@ -20,6 +20,7 @@
             background: #060912;
             color: white;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
         body::before {
@@ -50,6 +51,7 @@
             display: grid;
             grid-template-columns: 1fr 520px;
             min-height: 100vh;
+            width: 100%;
         }
 
         .left {
@@ -160,6 +162,7 @@
             align-items: center;
             padding: 30px;
             animation: float 5s ease-in-out infinite;
+            pointer-events: none;
         }
 
         .contract h2 {
@@ -195,6 +198,7 @@
             justify-content: center;
             align-items: center;
             padding: 40px;
+            width: 100%;
         }
 
         .card {
@@ -242,6 +246,7 @@
             color: white;
             font-size: 16px;
             margin-left: 15px;
+            width: 100%;
         }
 
         .input i {
@@ -341,6 +346,7 @@
             .container {
                 display: flex;
                 flex-direction: column-reverse;
+                padding-top: 80px;
             }
 
             .contract {
@@ -348,11 +354,35 @@
             }
 
             .left {
-                padding: 50px;
+                padding: 30px 20px;
+                align-items: center;
+                text-align: center;
+            }
+
+            .left h1 {
+                font-size: 40px;
+            }
+
+            .desc {
+                font-size: 16px;
+            }
+
+            .features {
+                width: 100%;
+                max-width: 100%;
             }
 
             .right {
-                padding: 50px;
+                padding: 20px;
+            }
+
+            .card {
+                padding: 30px 20px;
+                max-width: 100%;
+            }
+
+            .card h1 {
+                font-size: 32px;
             }
         }
     </style>
@@ -367,13 +397,6 @@
     </div>
     <div class="container">
         <div class="left">
-            <!-- <div style="width: 100%; display: flex; justify-content: flex-start; margin-bottom: 20px;">
-                <a href="{{ url_for('home') }}"
-                    style="color: #4e84ff; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px;">
-                    <i class="fa-solid fa-arrow-left"></i> Back to Home
-                </a>
-            </div> -->
-            <!-- Inside <div class="left"> -->
             <div class="logo">
                 <a href="{{ url_for('home') }}"
                     style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 15px;">
@@ -500,6 +523,7 @@
             el.innerText = error.code ? getFriendlyError(error) : error;
             setTimeout(() => { el.innerText = ""; }, 6000);
         };
+        
         const syncSessionAndRedirect = async (email) => {
             await fetch('/set-session', {
                 method: 'POST',
@@ -514,15 +538,38 @@
                 window.location.href = "/home";
             }
         };
+
         document.getElementById('si-btn').onclick = () => {
-            signInWithEmailAndPassword(auth, document.getElementById('si-email').value, document.getElementById('si-pass').value)
-                .then(() => window.location.href = "/home")
+            const email = document.getElementById('si-email').value;
+            signInWithEmailAndPassword(auth, email, document.getElementById('si-pass').value)
+                .then(async () => {
+                    await fetch('/set-session', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: email })
+                    });
+
+                    const next = getQueryParam('next');
+                    if (next === 'analyze') {
+                        window.location.href = "/analyze";
+                    } else {
+                        window.location.href = "/home";
+                    }
+                })
                 .catch(e => showError('si-error', e));
         };
 
         document.getElementById('su-btn').onclick = () => {
-            createUserWithEmailAndPassword(auth, document.getElementById('su-email').value, document.getElementById('su-pass').value)
-                .then(() => window.location.href = "/home")
+            const email = document.getElementById('su-email').value;
+            createUserWithEmailAndPassword(auth, email, document.getElementById('su-pass').value)
+                .then(async () => {
+                    await fetch('/set-session', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: email })
+                    });
+                    window.location.href = "/home";
+                })
                 .catch(e => showError('su-error', e));
         };
 
@@ -535,27 +582,6 @@
         document.getElementById('google-btn').onclick = () => {
             signInWithPopup(auth, provider)
                 .then((result) => syncSessionAndRedirect(result.user.email))
-                .catch(e => showError('si-error', e));
-        };
-        // Example modification for sign-in
-        document.getElementById('si-btn').onclick = () => {
-            const email = document.getElementById('si-email').value;
-            signInWithEmailAndPassword(auth, email, document.getElementById('si-pass').value)
-                .then(async () => {
-                    await fetch('/set-session', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ email: email })
-                    });
-
-                    // Check if 'next' was passed, otherwise default to '/home'
-                    const next = getQueryParam('next');
-                    if (next === 'analyze') {
-                        window.location.href = "/analyze";
-                    } else {
-                        window.location.href = "/home";
-                    }
-                })
                 .catch(e => showError('si-error', e));
         };
     </script>
