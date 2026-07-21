@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZeroTrace | Service Starting Soon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Background Glow Effects from ZeroTrace Theme */
+        body::before {
+            content: "";
+            position: fixed;
+            left: -250px;
+            top: -250px;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, #007bff30 0%, transparent 70%);
+            filter: blur(100px);
+            z-index: -2;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            right: -250px;
+            bottom: -250px;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, #007bff18 0%, transparent 70%);
+            filter: blur(120px);
+            z-index: -2;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 600px;
+            text-align: center;
+            padding: 40px;
+            background: rgba(17, 17, 17, 0.92);
+            border: 1px solid #222;
+            border-radius: 24px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            animation: fadeUp 1s ease;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            margin-bottom: 30px;
+        }
+
+        .logo img {
+            width: 50px;
+            filter: drop-shadow(0 0 12px rgba(0, 123, 255, .4));
+        }
+
+        .logo h2 {
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #007bff;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 16px;
+            background: #111;
+            border: 1px solid rgba(0, 123, 255, .45);
+            border-radius: 30px;
+            color: #9cc9ff;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+        }
+
+        .badge::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #007bff;
+            box-shadow: 0 0 10px #007bff;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #ffffff, #007bff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            color: #bdbdbd;
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 35px;
+        }
+
+        .btn-home {
+            display: inline-block;
+            padding: 14px 30px;
+            background: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+        }
+
+        .btn-home:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 123, 255, 0.5);
+        }
+
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/zerotrace_logo.png') }}" alt="ZeroTrace Logo">
+            <h2>Zero<span>Trace</span></h2>
+        </div>
+
+        <div class="badge">Coming Soon</div>
+
+        <h1>Service Will Start Soon!</h1>
+        <p>We are currently fine-tuning our AI-native contract intelligence engine to bring you the highest level of security and precision. Stay tuned!</p>
+
+        <a href="{{ url_for('home') }}" class="btn-home">← Back to Home</a>
+    </div>
+
+</body>
+</html>
