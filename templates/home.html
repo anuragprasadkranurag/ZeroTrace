@@ -1185,6 +1185,30 @@ RESPONSIVE
             justify-content: center;
             border-radius: 12px;
         }
+
+        /* Specifically target the CTA section 'Start Free Today' button */
+        .cta-box .hero-btn.primary {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            z-index: 1;
+        }
+
+        .cta-box .hero-btn.primary::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 120%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .3), transparent);
+            transition: .6s;
+            pointer-events: none;
+        }
+
+        .cta-box .hero-btn.primary:hover::before {
+            left: 150%;
+        }
     </style>
 
 </head>
